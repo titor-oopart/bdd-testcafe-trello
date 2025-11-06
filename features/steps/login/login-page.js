@@ -1,0 +1,33 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+import { t, Selector } from "testcafe";
+import { LoginLocators } from "./login-locators.js";
+export class LoginPage {
+  constructor() {
+    this.usernameField = Selector(LoginLocators.userName);
+    this.passwordField = Selector(LoginLocators.password);
+    this.continueButton = Selector(LoginLocators.continueButton);
+    this.avatarMenu = Selector(LoginLocators.avatarMenu);
+    this.emailTextField = Selector(LoginLocators.emailTextField);
+    this.trelloLogo = Selector(LoginLocators.trelloLogo);
+    this.userName = process.env.USER_NAME;
+    this.userPassword = process.env.USER_PASSWORD;
+  }
+
+  async login() {
+    await t
+      .typeText(this.usernameField, this.userName)
+      .click(this.continueButton)
+      .typeText(this.passwordField, this.userPassword)
+      .click(this.continueButton);
+  }
+
+  async verifyUserLogged() {
+    await t.click(this.avatarMenu);
+    const userEmail = Selector(this.emailTextField);
+    await t.expect(userEmail.innerText).eql(this.userName);
+    const trelloLogo = Selector(this.trelloLogo);
+    await t.expect(trelloLogo.visible).ok();
+  }
+}
