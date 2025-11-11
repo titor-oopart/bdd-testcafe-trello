@@ -6,4 +6,5 @@ export const LoginLocators = {
   emailTextField:
     '[data-testid="account-menu-account-section"] div[class="RpQsLvDvZmhbBg"]',
   trelloLogo: '[data-testid="team25-header-logo"]',
+  contiueFactorAuth: "#mfa-promote-dismiss",
 };
