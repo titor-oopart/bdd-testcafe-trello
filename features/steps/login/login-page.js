@@ -3,6 +3,8 @@ dotenv.config();
 
 import { t, Selector } from "testcafe";
 import { LoginLocators } from "./login-locators.js";
+import { clickElement, waitingForFirstLocator } from "../../../utils/utils.js";
+
 export class LoginPage {
   constructor() {
     this.usernameField = Selector(LoginLocators.userName);
@@ -11,20 +13,25 @@ export class LoginPage {
     this.avatarMenu = Selector(LoginLocators.avatarMenu);
     this.emailTextField = Selector(LoginLocators.emailTextField);
     this.trelloLogo = Selector(LoginLocators.trelloLogo);
+    this.continueButtonAuth = Selector(LoginLocators.contiueFactorAuth);
     this.userName = process.env.USER_NAME;
     this.userPassword = process.env.USER_PASSWORD;
   }
 
   async login() {
-    await t
-      .typeText(this.usernameField, this.userName)
-      .click(this.continueButton)
-      .typeText(this.passwordField, this.userPassword)
-      .click(this.continueButton);
+    await t.typeText(this.usernameField, this.userName);
+    await clickElement(this.continueButton);
+    await t.typeText(this.passwordField, this.userPassword);
+    await clickElement(this.continueButton, "login sucess");
+    if (
+      await waitingForFirstLocator(this.continueButtonAuth, this.trelloLogo)
+    ) {
+      await clickElement(this.continueButtonAuth);
+    }
   }
 
   async verifyUserLogged() {
-    await t.click(this.avatarMenu);
+    await clickElement(this.avatarMenu, "avatar menu");
     const userEmail = Selector(this.emailTextField);
     await t.expect(userEmail.innerText).eql(this.userName);
     const trelloLogo = Selector(this.trelloLogo);
