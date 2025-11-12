@@ -35,3 +35,23 @@ export async function waitingForFirstLocator(
   }
   return false;
 }
+export async function isElmentVisible(locator) {
+  const element = Selector(locator);
+  return await element.visible;
+}
+
+export async function validateElementVisible(
+  locator,
+  description = "element",
+  timeout = 10000,
+) {
+  const element = Selector(locator);
+
+  await t
+    .expect(element.exists)
+    .ok(`${description} doesn't exist in the DOM`, { timeout });
+
+  await t
+    .expect(element.visible)
+    .ok(`${description} is not visible.`, { timeout });
+}
