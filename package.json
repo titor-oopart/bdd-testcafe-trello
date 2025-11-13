@@ -1,8 +1,9 @@
 {
   "dependencies": {
-    "@cucumber/cucumber": "^10.9.0",
-    "gherkin-testcafe": "^7.4.0",
-    "dotenv": "^17.2.3"
+    "@cucumber/cucumber": "10.9.0",
+    "axios": "1.13.2",
+    "dotenv": "17.2.3",
+    "gherkin-testcafe": "7.4.0"
   },
   "type": "module"
 }
