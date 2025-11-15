@@ -36,14 +36,6 @@ RUN mkdir -p /etc/opt/chrome/policies/managed && \
   ]
 }
 EOF
-# RUN mkdir -p /etc/opt/chrome/policies/managed/
-# RUN echo {' \
-#   "LocalNetworkAccessAllowedForUrls": [ \
-#   "[*.]trello.com", \
-#   "http://localhost:3000", \
-#   "[*.]atlassian.com" \
-#   ] \
-#   '} > /etc/opt/chrome/policies/managed/local_network.json
 
 # Install edge browser
 RUN curl -fSsL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft-edge.gpg > /dev/null
@@ -51,10 +43,10 @@ RUN echo 'deb [signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://package
 RUN apt-get update && apt-get -y --no-install-recommends install microsoft-edge-stable
 
 WORKDIR /app
-ENV GIT_BRANCH=develop
-RUN git clone --branch ${GIT_BRANCH} https://github.com/titor-oopart/bdd-testcafe-trello.git /app
+RUN git clone https://github.com/titor-oopart/bdd-testcafe-trello.git /app
 RUN cd /app
 RUN npm install
 ENV BROWSER=firefox
-CMD ["sh","-c", "npx gherkin-testcafe ${BROWSER}:headless features/"]
+ENV GIT_BRANCH=develop
+CMD ["sh", "-c", "git pull && git checkout ${GIT_BRANCH} && npx gherkin-testcafe ${BROWSER}:headless features/"]
 
