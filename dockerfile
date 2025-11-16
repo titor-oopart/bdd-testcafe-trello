@@ -44,7 +44,6 @@ RUN apt-get update && apt-get -y --no-install-recommends install microsoft-edge-
 
 WORKDIR /app
 RUN git clone https://github.com/titor-oopart/bdd-testcafe-trello.git /app
-RUN cd /app
 RUN npm install
 ENV BROWSER=firefox
 ENV GIT_BRANCH=develop

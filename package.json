@@ -3,7 +3,11 @@
     "@cucumber/cucumber": "10.9.0",
     "axios": "1.13.2",
     "dotenv": "17.2.3",
-    "gherkin-testcafe": "7.4.0"
+    "gherkin-testcafe": "7.4.0",
+    "testcafe-reporter-allure": "1.0.5"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "bdd-report": "allure generate allure/allure-results --clean -o allure/allure-report && allure open allure/allure-report"
+  }
 }

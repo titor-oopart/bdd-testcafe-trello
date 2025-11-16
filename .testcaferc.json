@@ -1,4 +1,9 @@
 {
   "skipJsErrors": true,
-  "hostname": "localhost"
+  "hostname": "localhost",
+  "screenshots": {
+    "path": "screenshots",
+    "takeOnFails": true,
+    "fullPage": true
+  }
 }
