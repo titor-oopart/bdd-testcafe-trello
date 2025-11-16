@@ -1,4 +1,4 @@
-# bdd-testcafe-trello
+# BDD TestCafe Trello
 
 bdd-testcafe-trello
 
@@ -20,6 +20,30 @@ sudo nano /etc/opt/chrome/policies/managed/local_network.json
     "[*.]atlassian.com"
   ]
 }
+```
+
+## Install dependencies
+
+```bash
+npm install
+```
+
+## Create and fill .env file
+
+```bash
+cp .env.example .env
+```
+
+## Run tests
+
+```bash
+npx gherkin-testcafe edge:headless features/ --reporter allure
+```
+
+## Generate Allure report
+
+```bash
+npm run bdd-report
 ```
 
 # 🐳 TestCafe BDD Multi-Browser Docker Image
