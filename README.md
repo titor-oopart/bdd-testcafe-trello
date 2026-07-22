@@ -1,16 +1,90 @@
 # BDD TestCafe Trello
 
-bdd-testcafe-trello
+A Behavior-Driven Development (BDD) test automation framework for the Trello web application built with **JavaScript**, **TestCafe**, and **Cucumber**.
 
-## Permitir acceso a la red local en Chrome (Linux)
+This project demonstrates industry-standard QA automation practices, including **Page Object Model (POM)**, **BDD with Gherkin**, **cross-browser execution**, **environment-based configuration**, and **Allure reporting**.
 
-Cuando se ejecutan tests con TestCafe y Trello, Chrome puede bloquear solicitudes a la red local. Para evitarlo, aplica la política `LocalNetworkAccessAllowedForUrls`:
+---
 
-### 1️⃣ Crear el archivo de política
+# 🚀 Features
+
+- ✅ Behavior-Driven Development (BDD)
+- ✅ Page Object Model (POM)
+- ✅ TestCafe UI Automation
+- ✅ Cucumber & Gherkin
+- ✅ Cross-Browser Testing
+- ✅ Environment Variable Configuration
+- ✅ Allure Reporting
+- ✅ Modular Framework Architecture
+- ✅ Reusable Step Definitions
+- ✅ Git Version Control
+
+---
+
+# 🛠 Technologies
+
+| Category | Technologies |
+|----------|--------------|
+| Language | JavaScript (Node.js) |
+| Automation | TestCafe |
+| BDD | Cucumber, Gherkin |
+| Reporting | Allure Report |
+| Version Control | Git, GitHub |
+| Operating System | Linux |
+
+---
+
+# 📂 Project Structure
+
+```
+bdd-testcafe-trello/
+│
+├── features/          # Gherkin feature files
+├── steps/             # Step definitions
+├── pages/             # Page Object Model
+├── hooks/             # Test hooks
+├── utils/             # Utility functions
+├── config/            # Configuration files
+├── reports/           # Allure reports
+├── package.json
+└── README.md
+```
+
+### Architecture Highlights
+
+- Separation between test scenarios and implementation.
+- Reusable Page Object Model components.
+- Modular and maintainable project structure.
+- Environment-based configuration.
+- Easy to extend with additional test suites.
+
+---
+
+# 🧠 Skills Demonstrated
+
+- UI Test Automation
+- Behavior-Driven Development (BDD)
+- Test Design
+- Page Object Model (POM)
+- Cross-Browser Testing
+- Test Framework Design
+- Environment Configuration
+- Test Reporting
+- Git Workflow
+
+---
+
+# 🌐 Chrome Local Network Policy (Linux)
+
+When running TestCafe against Trello, Chrome may block requests to local services. To allow access, configure the `LocalNetworkAccessAllowedForUrls` policy.
+
+## Create the policy file
 
 ```bash
 sudo nano /etc/opt/chrome/policies/managed/local_network.json
 ```
+
+Add the following content:
 
 ```json
 {
@@ -22,195 +96,112 @@ sudo nano /etc/opt/chrome/policies/managed/local_network.json
 }
 ```
 
-## Install dependencies
+---
+
+# 📦 Installation
+
+Install project dependencies.
 
 ```bash
 npm install
 ```
 
-## Create and fill .env file
+---
+
+# ⚙️ Environment Configuration
+
+Create your local environment file.
 
 ```bash
 cp .env.example .env
 ```
 
-## Run tests
+Update the required environment variables before running the test suite.
+
+---
+
+# ▶️ Running Tests
+
+Execute all BDD scenarios.
 
 ```bash
 npx gherkin-testcafe edge:headless features/ --reporter allure
 ```
 
-## Generate Allure report
+Replace `edge` with your preferred browser if necessary.
+
+---
+
+# 📊 Generate Allure Report
+
+Generate and open the Allure report.
 
 ```bash
 npm run bdd-report
 ```
 
-# 🐳 TestCafe BDD Multi-Browser Docker Image
+---
 
-This Docker image provides a complete environment for running **TestCafe + Gherkin BDD tests** on multiple browsers in headless mode, including:
+# 🔐 Authentication & Browser Compatibility
 
-- **Firefox ESR**
-- **Google Chrome**
-- **Chromium**
-- **Microsoft Edge**
+Trello requires an email verification (2FA) challenge when a browser or execution environment signs in for the first time.
 
-It is designed for CI/CD pipelines or local execution where a reliable and reproducible browser-testing setup is required.
+Browser compatibility:
+
+| Browser | Headless | Normal |
+|----------|----------|--------|
+| Chrome | ❌ Requires manual authentication | ✅ |
+| Firefox | ✅ After first login | ✅ |
+| Chromium | ✅ After first login | ✅ |
+| Edge | ✅ After first login | ✅ |
+
+After the initial successful authentication, Firefox, Chromium, and Edge can execute the automated tests normally in headless mode.
 
 ---
 
-## 🚀 Features
+# 📁 Environment Variables
 
-- Preinstalled browsers: Chrome, Chromium, Firefox ESR, Microsoft Edge
-- Custom Chrome policies for local network access
-- Pre-cloned TestCafe BDD project from GitHub
-- Automatic branch checkout and update on container start
-- Fully headless execution
-- Lightweight base image: `node:20-bullseye-slim`
-
----
-
-## 🛠️ What's Included in the Image
-
-### Installed System Tools
-
-- `git`, `curl`, `wget`, `sudo`
-- Browser-related dependencies
-- Google Chrome Stable
-- Firefox ESR
-- Microsoft Edge Stable
-
-### Installed Node Modules
-
-- Project dependencies are installed automatically via `npm install`.
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `BROWSER` | Browser used to execute the tests (`chrome`, `chromium`, `edge`, `firefox`) | `firefox` |
+| `API_URL` | Optional API endpoint | — |
+| Other variables | Project-specific configuration | — |
 
 ---
 
-## 📦 How to Build the Image
+# 📌 Project Status
 
-```bash
-docker build -t testcafe-bdd .
-```
+🚧 **Active Development**
 
----
+### Completed
 
-## Authentication Requirement & Browser Compatibility Overview
+- BDD framework architecture
+- Page Object Model (POM)
+- TestCafe integration
+- Cucumber & Gherkin support
+- Cross-browser execution
+- Allure reporting
+- Environment configuration
 
-Before running the automated tests, you must manually log in to Trello at least once. Trello applies an email-based two-factor authentication (2FA) challenge when a new device or environment tries to sign in. Since each Docker container is treated as a new device, the first login attempt may require this verification step.
+### Planned Improvements
 
-### Browser Behavior (Headless vs Normal Mode)
-
-All browsers can run the tests in both headless and normal mode, except for one specific case:
-
-- Chrome **fails in headless mode** because it cannot process the 2FA challenge required by Trello.
-- Chrome **works normally in non-headless mode**, allowing you to complete the 2FA step.
-- Firefox (headless and normal) works after the first successful login.
-- Edge and Chromium behave normally in both modes once the login is trusted.
-
-### Summary Table
-
-| Browser  | Headless Mode                               | Normal Mode       |
-| -------- | ------------------------------------------- | ----------------- |
-| Chrome   | ❌ Cannot run tests due to 2FA restrictions | ✔️ Works normally |
-| Firefox  | ✔️ Works after first manual login           | ✔️ Works normally |
-| Chromium | ✔️ Works after first manual login           | ✔️ Works normally |
-| Edge     | ✔️ Works after first manual login           | ✔️ Works normally |
-
-In summary, the only limitation is that Chrome cannot run the authentication flow in headless mode due to Trello's 2FA requirements. All other browsers and modes function correctly once the initial login is completed.
-
-## ▶️ How to Run Tests
-
-You can run the container with environment variables directly or via an env file.
-
-### 1) Using `docker run` with `-e` environment variables
-
-```bash
-docker run --rm \
-  -e BROWSER=chrome \
-  -e GIT_BRANCH=develop \
-  testcafe-bdd
-```
-
-### 2) Using `--env-file` (recommended)
-
-Create an env file, e.g. `.env`, check the file .env.example:
-
-```env
-BROWSER=firefox
-GIT_BRANCH=develop
-API_URL=http://localhost:3000
-OTHER_SECRET=secret-value
-```
-
-Run:
-
-```bash
-docker run --env-file .env -e BROWSER=chrome -e GIT_BRANCH=dockerfile -it testcafe-bdd
-```
+- Additional UI test scenarios
+- API test integration
+- CI/CD pipeline
+- Expanded documentation
+- Improved framework utilities
 
 ---
 
-## 🔧 Environment Variables
+# 🔒 Security Notes
 
-| Variable     | Description                                              | Default   |
-| ------------ | -------------------------------------------------------- | --------- |
-| `BROWSER`    | Browser to use (`chrome`, `chromium`, `edge`, `firefox`) | `firefox` |
-| `GIT_BRANCH` | Git branch to pull before running tests                  | `develop` |
-| `API_URL`    | Optional API endpoint for the test suite                 | —         |
-| Other vars   | Any variables required by your test suite                | —         |
+- Never commit secrets to the repository.
+- Store credentials in the `.env` file.
+- Keep `.env` listed in `.gitignore`.
+- Use environment variables for sensitive information.
 
 ---
 
-## 📁 Directory Structure
+# 📄 License
 
-Inside the container:
-
-```
-/app
-  ├── features/
-  ├── api
-  ├── package.json
-  └── testcafe config files
-```
-
-The project is cloned from:
-
-```
-https://github.com/titor-oopart/bdd-testcafe-trello.git
-```
-
----
-
-## ⚙️ Container Startup Behavior
-
-At container startup, the following occurs:
-
-1. Pull the latest changes from the selected branch
-2. Checkout that branch
-3. Run TestCafe in headless mode:
-
-```bash
-npx gherkin-testcafe ${BROWSER}:headless features/
-```
-
----
-
-## 🔐 Security Notes
-
-- Do **not** store secrets inside the image; use `--env-file`, Docker secrets, or CI secret storage.
-- Add `.env` files to `.gitignore`.
-- If accessing local services (e.g., `localhost:3000`), configure networking properly. Consider `--network host` only for local debugging.
-
----
-
-## 📜 Chrome Policy Configuration
-
-Chrome is configured to allow local network access:
-
-- `trello.com`
-- `atlassian.com`
-- `http://localhost:3000`
-
-Useful for bypassing internal restrictions during automation.
-
----
+This project was created for learning purposes and to demonstrate QA Automation framework design using TestCafe, Cucumber, and modern testing practices.
